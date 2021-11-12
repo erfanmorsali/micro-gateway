@@ -1,0 +1,5 @@
+user_service_base_url=http://localhost:8001/
+user_service_api_key =user-fake-apikey
+
+address_service_base_url=http://localhost:8002/
+address_service_api_key =address-fake-apikey
