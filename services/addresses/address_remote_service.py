@@ -1,6 +1,7 @@
 import requests
 from decouple import config
-
+from circuitbreaker import circuit
+from requests.exceptions import RequestException
 from schemas.address import AddressIn
 
 
@@ -27,16 +28,19 @@ class AddressRemoteService:
 
         return resp.json(), resp.status_code
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def fetch_all_address(self):
         url = "addresses/"
         method = "GET"
         return self.base_request(url, method)
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def fetch_user_addresses(self, user_id):
         url = f"addresses/{user_id}/"
         method = "GET"
         return self.base_request(url, method)
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def create_address(self, address_input: AddressIn):
         url = f"addresses/create"
         method = "POST"
@@ -47,6 +51,7 @@ class AddressRemoteService:
         }
         return self.base_request(url, method, data=data)
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def delete_address(self, user_id):
         url = f"addresses/delete/{user_id}/"
         method = "DELETE"

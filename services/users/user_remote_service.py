@@ -1,7 +1,8 @@
 import requests
 from decouple import config
-
+from circuitbreaker import circuit
 from schemas.user import UserIn
+from requests.exceptions import RequestException
 
 
 class UserRemoteService:
@@ -26,16 +27,19 @@ class UserRemoteService:
 
         return resp.json(), resp.status_code
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def fetch_all_users(self):
         url = "users/"
         method = "GET"
         return self.base_request(url, method)
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def fetch_single_user(self, user_id):
         url = f"users/{user_id}"
         method = "GET"
         return self.base_request(url, method)
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def create_user(self, data: UserIn):
         url = f"users/create"
         method = "POST"
@@ -44,6 +48,7 @@ class UserRemoteService:
         }
         return self.base_request(url, method, data)
 
+    @circuit(failure_threshold=5, recovery_timeout=120, expected_exception=RequestException)
     def delete_user(self, user_id):
         url = f"users/delete/{user_id}"
         method = "DELETE"
