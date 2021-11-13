@@ -11,6 +11,3 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.include_router(api_router)
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", debug=True, reload=True)

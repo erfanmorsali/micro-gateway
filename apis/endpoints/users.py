@@ -26,6 +26,7 @@ def get_all_users(request: Request):
 
     # if RequestException raised :
     except RequestException as e:
+        print(e)
         raise HTTPException(500, "Internal")
 
     # if CircuitBreakerError raised :

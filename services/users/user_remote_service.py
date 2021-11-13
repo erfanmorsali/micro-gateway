@@ -11,7 +11,7 @@ class UserRemoteService:
         self.user_service_api_key = config("user_service_api_key")
 
     def base_request(self, url, method, data=None, params=None):
-        requested_url = self.user_service_base_url + "v1/" + url
+        requested_url = "http://" + self.user_service_base_url + "v1/" + url
         headers = {
             "x-api-key": self.user_service_api_key
         }

@@ -12,7 +12,7 @@ class AddressRemoteService:
         self.address_service_api_key = config("address_service_api_key")
 
     def base_request(self, url, method, data=None, params=None):
-        requested_url = self.address_service_base_url + "v1/" + url
+        requested_url = "http://" + self.address_service_base_url + "v1/" + url
         headers = {
             "x-api-key": self.address_service_api_key
         }
