@@ -1,6 +1,6 @@
 # How to run projects
 
-## First of all clone all the projects.
+## 1 _clone all the projects.
 
 # links:
 
@@ -8,7 +8,15 @@ https://github.com/erfanmorsali/micro-gateway
 https://github.com/erfanmorsali/micro-users
 https://github.com/erfanmorsali/micro-addresses
 
-## create networks and volumes :
+## 2 _prepare projects to run
+### run this command in java projects root directories:
+``
+mvn clean package -DskipTests
+``
+##this command must generate a directory named target for you.
+
+
+##3 _create networks and volumes :
 
 ``
 docker network create rabbit-network
@@ -40,9 +48,9 @@ docker volume create micro-address-volume
 docker-compose up -d --build
 ``
 
-## first run gateway,then run micro-users and finally micro-addresses
+## Its better to  first run gateway, then run micro-users and finally micro-addresses.
 
-## you can find swagger documents in :
+## You can find swagger documents in :
 
 localhost:8000/docs
 
